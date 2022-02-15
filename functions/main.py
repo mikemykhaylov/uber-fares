@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
-from typing import TypedDict, Union, Optional, Dict, List
+from typing import TypedDict, Union, Dict, List
+from zoneinfo import ZoneInfo
 
 import functions_framework
 import holidays
@@ -65,7 +66,7 @@ def validate_request(request_json) -> Union[RequestData, list[str]]:
 def preprocess_data(data: RequestData) -> ndarray:
     df: DataFrame = pd.read_csv('./src/empty_features.csv')
     df = df.iloc[1:, :]
-    curr_date = datetime.now()
+    curr_date = datetime.now(tz=ZoneInfo('America/New_York'))
     past_date = datetime(data['year'], curr_date.month, curr_date.day, curr_date.hour)
 
     new_entry = {
