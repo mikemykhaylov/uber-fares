@@ -2,7 +2,13 @@ import { Button, Heading, Stack } from '@chakra-ui/react';
 import { FaUber, MdOnlinePrediction } from 'react-icons/all';
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { markerPositions, passengerCount, predictedFare, predictionYear } from '../state/atoms';
+import {
+  markerPositions,
+  passengerCount,
+  predictedFare,
+  predictionYear,
+  predictionYearError,
+} from '../state/atoms';
 import { getPredictedFare } from '../api';
 
 const GetFares = () => {
@@ -13,10 +19,19 @@ const GetFares = () => {
   const year = useRecoilValue(predictionYear);
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const passenger_count = useRecoilValue(passengerCount);
+
+  const setIsError = useSetRecoilState(predictionYearError);
+
   const setPredictedFare = useSetRecoilState(predictedFare);
 
   const handleGetPrediction = async () => {
+    if (year === 0) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
     setLoading(true);
+    setPredictedFare(0);
     const prediction = await getPredictedFare({ pickup, dropoff, passenger_count, year });
     setPredictedFare(prediction);
     setLoading(false);

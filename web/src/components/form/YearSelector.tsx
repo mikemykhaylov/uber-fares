@@ -1,13 +1,18 @@
 import { useRecoilState } from 'recoil';
 import React, { ChangeEvent } from 'react';
 import { Select } from '@chakra-ui/react';
-import { predictionYear } from '../../state/atoms';
+import { predictionYear, predictionYearError } from '../../state/atoms';
 
 const YearSelector = () => {
   const [yearValue, setYearValue] = useRecoilState(predictionYear);
+  const [isError, setIsError] = useRecoilState(predictionYearError);
 
   const selectYear = (e: ChangeEvent<HTMLSelectElement>) => {
     setYearValue(+e.target.value);
+
+    if (isError) {
+      setIsError(+e.target.value === 0);
+    }
   };
   return (
     <Select
