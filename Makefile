@@ -80,11 +80,11 @@ model:
 	$(PYTHON_INTERPRETER) -m utils.models train data/processed --output-path=models --mode=train --max_depth=27 --n_estimators=100
 
 ## Run custom training job on Google Cloud
-vertex_train:
+vertex_train: gcs_task_push
 	gcloud ai custom-jobs create --region=us-central1 --display-name=uber-fares-model-custom-job --config=gcloud/train_config.yml
 
 ## Run hyperparameter tuning job on Google Cloud Vertex AI
-vertex_hp_tune:
+vertex_hp_tune: gcs_task_push
 	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name=uber-fares-model-tuning-job \
 	--max-trial-count=15 --parallel-trial-count=3 --config=gcloud/hp_config.yml
 
