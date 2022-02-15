@@ -9,6 +9,7 @@ gcsfs
 geopandas
 geopy
 google-cloud-storage
+holidays
 jupyter
 numpy
 pandas
