@@ -1,6 +1,7 @@
 click
 cloudml-hypertune
 coverage
+docutils==0.17
 flake8
 flit
 folium
