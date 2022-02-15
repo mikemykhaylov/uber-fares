@@ -24,10 +24,16 @@ class RequestData(TypedDict):
     pickup: Location
     dropoff: Location
     passenger_count: int
+    year: int
 
 
-location = Schema({"lat": lambda val: -90 <= val <= 90, "lng": lambda val: -180 <= val <= 180})
-request_schema = Schema({"pickup": location, "dropoff": location, "passenger_count": lambda val: 1 <= val <= 6})
+location_schema = Schema({"lat": lambda val: -90 <= val <= 90, "lng": lambda val: -180 <= val <= 180})
+request_schema = Schema({
+    "pickup": location_schema,
+    "dropoff": location_schema,
+    "passenger_count": lambda val: 1 <= val <= 6,
+    "year": lambda val: 2008 <= val <= 2015
+})
 
 
 def get_neighborhood(point, nyc_neighborhoods):
@@ -48,34 +54,35 @@ def get_neighborhood(point, nyc_neighborhoods):
     return "Outside NYC"
 
 
-def validate_request(request_json) -> Optional[RequestData]:
+def validate_request(request_json) -> Union[RequestData, list[str]]:
     try:
         data: RequestData = request_schema.validate(request_json)
         return data
-    except SchemaError:
-        return None
+    except SchemaError as e:
+        return e.autos
 
 
 def preprocess_data(data: RequestData) -> ndarray:
     df: DataFrame = pd.read_csv('./src/empty_features.csv')
     df = df.iloc[1:, :]
     curr_date = datetime.now()
+    past_date = datetime(data['year'], curr_date.month, curr_date.day, curr_date.hour)
 
     new_entry = {
         'year':
-            curr_date.year - 2008,
+            data['year'] - 2008,
         'is_holiday':
-            curr_date.date() in holidays.US(state="NY", years=curr_date.year),
+            past_date.date() in holidays.US(state="NY", years=past_date.year),
         'passenger_count':
             data['passenger_count'],
         'distance':
             distance.distance((data['pickup']['lat'], data['pickup']['lng']),
                               (data['dropoff']['lat'], data['dropoff']['lng'])).km,
-        f'month_{curr_date.month}':
+        f'month_{past_date.month}':
             1,
-        f'hour_{curr_date.hour}':
+        f'hour_{past_date.hour}':
             1,
-        f'weekday_{curr_date.weekday()}':
+        f'weekday_{past_date.weekday()}':
             1
     }
 
@@ -138,8 +145,8 @@ def main(request: Flask.request_class):
     request_json = request.get_json()
 
     request_data = validate_request(request_json)
-    if not request_data:
-        return 'Invalid inputs', 400
+    if 'passenger_count' not in request_data:
+        return {'errors': request_data}, 400
 
     features = preprocess_data(request_data)
 
