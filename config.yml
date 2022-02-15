@@ -1,0 +1,34 @@
+studySpec:
+  metrics:
+    - metricId: r_squared
+      goal: MAXIMIZE
+  parameters:
+    - parameterId: max_depth
+      integerValueSpec:
+        minValue: '20'
+        maxValue: '30'
+    - parameterId: n_estimators
+      categoricalValueSpec:
+        values:
+          - '50'
+          - '100'
+trialJobSpec:
+  workerPoolSpecs:
+    - machineSpec:
+        machineType: e2-highmem-4
+      replicaCount: '1'
+      diskSpec:
+        bootDiskType: pd-ssd
+        bootDiskSizeGb: 100
+      pythonPackageSpec:
+        executorImageUri: us-docker.pkg.dev/vertex-ai/training/scikit-learn-cpu.0-23:latest
+        packageUris:
+          - gs://data-science-pipeline-f1eb75cd-9d56-4916-a1c9-a1bef6478afa/uber-fares-0.1.0.tar.gz
+        pythonModule: utils.models.cli
+        args:
+          - train
+          - gs://data-science-pipeline-f1eb75cd-9d56-4916-a1c9-a1bef6478afa/data/processed
+          - "--gcloud"
+          - "--mode=cv"
+  baseOutputDirectory:
+    outputUriPrefix: gs://data-science-pipeline-f1eb75cd-9d56-4916-a1c9-a1bef6478afa/models

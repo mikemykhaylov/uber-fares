@@ -1,0 +1,42 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "uber-fares"
+version = "0.1.0"
+description = "Uber Fares Data Science"
+authors = [
+    { name = "Michael Mykhaylov", email = "mikemikhailov2003@gmail.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = ["License :: OSI Approved :: MIT License"]
+dependencies = ["click >= 8.0.0", "gcsfs >= 2021.11.1"]
+
+[project.urls]
+documentation = "https://uber-fares-docs.netlify.app/"
+repository = "https://github.com/mmykhaylov/uber-fares"
+
+[tool.flit.module]
+name = "utils"
+
+[tool.flit.sdist]
+include = ["utils/"]
+exclude = [
+    "data/",
+    "docs/",
+    "models/",
+    "notebooks/",
+    "references/",
+    "reports/",
+    "*.yml",
+    "Makefile",
+    "test_environment.py",
+    "tox.ini",
+]
+
+[tool.yapf]
+based_on_style = "google"
+column_limit = 119
