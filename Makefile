@@ -88,7 +88,7 @@ vertex_train: gcs_task_push
 vertex_hp_tune: gcs_task_push
 	CURRTIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name="uber-fares-model-tuning-${CURRTIME}" \
-	--max-trial-count=15 --parallel-trial-count=3 --config=gcloud/hp_config.yml
+	--max-trial-count=10 --parallel-trial-count=3 --config=gcloud/hp_config.yml
 
 ## Delete all compiled Python files
 clean:

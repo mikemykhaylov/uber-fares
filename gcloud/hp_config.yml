@@ -5,7 +5,7 @@ studySpec:
   parameters:
     - parameterId: max_depth
       integerValueSpec:
-        minValue: '20'
+        minValue: '25'
         maxValue: '30'
     - parameterId: n_estimators
       categoricalValueSpec:
