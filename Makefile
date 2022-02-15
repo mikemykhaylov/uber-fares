@@ -81,11 +81,13 @@ model:
 
 ## Run custom training job on Google Cloud
 vertex_train: gcs_task_push
-	gcloud ai custom-jobs create --region=us-central1 --display-name=uber-fares-model-custom-job --config=gcloud/train_config.yml
+	CURRTIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+	gcloud ai custom-jobs create --region=us-central1 --display-name="uber-fares-model-${CURRTIME}" --config=gcloud/train_config.yml
 
 ## Run hyperparameter tuning job on Google Cloud Vertex AI
 vertex_hp_tune: gcs_task_push
-	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name=uber-fares-model-tuning-job \
+	CURRTIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name="uber-fares-model-tuning-${CURRTIME}" \
 	--max-trial-count=15 --parallel-trial-count=3 --config=gcloud/hp_config.yml
 
 ## Delete all compiled Python files
