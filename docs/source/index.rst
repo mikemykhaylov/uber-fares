@@ -25,7 +25,7 @@ User's Guide
    :caption: Project Links:
    :hidden:
 
-   Github <https://github.com/mmykhaylov>
+   Github <https://github.com/mmykhaylov/uber-fares>
    LinkedIn <https://www.linkedin.com/in/mmykhaylov/>
 
 Indices and tables
