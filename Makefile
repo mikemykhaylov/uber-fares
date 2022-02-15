@@ -1,4 +1,4 @@
-.PHONY: clean data features model lint format requirements
+.PHONY: clean data features model lint format requirements build
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -24,6 +24,24 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
+## Set up python interpreter environment
+environment:
+ifeq (True,$(HAS_MAMBA))
+	@echo ">>> Detected mamba, creating conda environment."
+	mamba env create -n $(PROJECT_NAME) -f environment.yml
+	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+else ifeq (True,$(HAS_CONDA))
+	@echo ">>> Detected conda, creating conda environment."
+	conda env create -n $(PROJECT_NAME) -f environment.yml
+	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+else
+	$(PYTHON_INTERPRETER) -m pip install -q virtualenv virtualenvwrapper
+	@echo ">>> Installing virtualenvwrapper if not already installed.\nMake sure the following lines are in shell startup file\n\
+	export WORKON_HOME=$$HOME/.virtualenvs\nexport PROJECT_HOME=$$HOME/Devel\nsource /usr/local/bin/virtualenvwrapper.sh\n"
+	@bash -c "source `which virtualenvwrapper.sh`;mkvirtualenv $(PROJECT_NAME) --python=$(PYTHON_INTERPRETER)"
+	@echo ">>> New virtualenv created. Activate with:\nworkon $(PROJECT_NAME)"
+endif
+
 ## Install Python Dependencies
 requirements: test_environment
 ifeq (True,$(HAS_CONDA))
@@ -32,6 +50,10 @@ else
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 endif
+
+## Test python environment is setup correctly
+test_environment:
+	$(PYTHON_INTERPRETER) test_environment.py
 
 ## Process dataset
 data:
@@ -57,6 +79,15 @@ features:
 model:
 	$(PYTHON_INTERPRETER) -m utils.models train data/processed --output-path=models --mode=train --max_depth=27 --n_estimators=100
 
+## Run custom training job on Google Cloud
+vertex_train:
+	gcloud ai custom-jobs create --region=us-central1 --display-name=uber-fares-model-custom-job --config=gcloud/train_config.yml
+
+## Run hyperparameter tuning job on Google Cloud Vertex AI
+vertex_hp_tune:
+	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name=uber-fares-model-tuning-job \
+	--max-trial-count=15 --parallel-trial-count=3 --config=gcloud/hp_config.yml
+
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -81,14 +112,8 @@ gcs_model_pull:
 	gsutil -m cp -R gs://$(BUCKET)/model models
 
 ## Upload model task to Google Cloud Storage
-gcs_task_push:
-	flit build --format sdist
+gcs_task_push: build
 	gsutil -m cp -R dist/uber-fares-0.1.0.tar.gz gs://$(BUCKET)
-
-## Run hyperparameter tuning job
-vertex_hp_tune:
-	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name=uber-fares-model-tuning-job \
-	--max-trial-count=15 --parallel-trial-count=2 --config=config.yaml
 
 ## Lint using flake8
 lint:
@@ -98,27 +123,9 @@ lint:
 format:
 	yapf utils -r -i
 
-## Set up python interpreter environment
-environment:
-ifeq (True,$(HAS_MAMBA))
-	@echo ">>> Detected mamba, creating conda environment."
-	mamba env create -n $(PROJECT_NAME) -f environment.yml
-	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
-else ifeq (True,$(HAS_CONDA))
-	@echo ">>> Detected conda, creating conda environment."
-	conda env create -n $(PROJECT_NAME) -f environment.yml
-	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
-else
-	$(PYTHON_INTERPRETER) -m pip install -q virtualenv virtualenvwrapper
-	@echo ">>> Installing virtualenvwrapper if not already installed.\nMake sure the following lines are in shell startup file\n\
-	export WORKON_HOME=$$HOME/.virtualenvs\nexport PROJECT_HOME=$$HOME/Devel\nsource /usr/local/bin/virtualenvwrapper.sh\n"
-	@bash -c "source `which virtualenvwrapper.sh`;mkvirtualenv $(PROJECT_NAME) --python=$(PYTHON_INTERPRETER)"
-	@echo ">>> New virtualenv created. Activate with:\nworkon $(PROJECT_NAME)"
-endif
-
-## Test python environment is setup correctly
-test_environment:
-	$(PYTHON_INTERPRETER) test_environment.py
+## Build source distribution
+build:
+	flit build --format sdist
 
 #################################################################################
 # PROJECT RULES                                                                 #

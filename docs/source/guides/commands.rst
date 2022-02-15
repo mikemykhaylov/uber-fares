@@ -16,12 +16,12 @@ Data pipeline
 -------------
 - ``data``
     Process dataset through the whole pipeline
+- ``data-format``
+    Format raw data by standardizing data, extracting and calculating useful metrics
 - ``data-clean``
     Clean formatted data by removing outliers
 - ``data-enrich``
     Enrich clean data by adding data from external datasets (NYC Neighborhoods and US Holidays)
-- ``data-format``
-    Format raw data by standardizing data, extracting and calculating useful metrics
 - ``features``
     Create features
 
@@ -29,6 +29,8 @@ Model Training
 --------------
 - ``model``
     Train model
+- ``vertex_hp_train``
+    Run custom training job on Google Cloud Vertex AI
 - ``vertex_hp_tune``
     Run hyperparameter tuning job on Google Cloud Vertex AI
 
@@ -53,4 +55,5 @@ Miscellaneous
     Format using yapf
 - ``lint``
     Lint using flake8
-
+- ``build``
+    Build source distribution
