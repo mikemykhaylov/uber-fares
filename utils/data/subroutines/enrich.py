@@ -1,9 +1,10 @@
 import json
 import logging
+from datetime import date
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
+from holidays import US
 from pandas import DataFrame
 from shapely.geometry import Point, shape
 
@@ -20,7 +21,7 @@ class DataEnricher(DataProcessor):
 
     Attributes:
         nyc_neighborhoods(dict): Dictionary of NYC Neighborhoods and their geolocation
-        us_holidays(DataFrame): DataFrame of all past US holidays
+        nyc_holidays(US): DataFrame of all past US holidays
 
     """
 
@@ -42,8 +43,7 @@ class DataEnricher(DataProcessor):
         with open(geojson_path) as f:
             self.nyc_neighborhoods = json.load(f)
 
-        us_holidays_path = str(project_dir) + "/data/external/us_holidays.csv"
-        self.us_holidays: DataFrame = pd.read_csv(us_holidays_path)
+        self.nyc_holidays = US(state="NY")
 
     def enrich_data(self):
         """Adds NYC neighborhoods and US holidays to cleaned data
@@ -118,24 +118,11 @@ class DataEnricher(DataProcessor):
           DataFrame: DataFrame with US Holidays
 
         """
-
-        def pad_number(n, length):
-            """Pads integer to a certain length with zeros
-
-            Args:
-              n(int): integer to pad
-              length(int): padding length
-
-            Returns:
-                str: Padded integer
-            """
-            return str(n).zfill(length)
-
         is_holiday = []
 
-        for i, row in df.iterrows():
-            date = f"{pad_number(row['year'], 4)}-{pad_number(row['month'], 2)}-{pad_number(row['day'], 2)}"
-            is_holiday.append(date in self.us_holidays["Date"].values)
+        for i, row in df[['year', 'month', 'day']].astype(int).iterrows():
+            ride_date = date(row['year'], row['month'], row['day'])
+            is_holiday.append(ride_date in self.nyc_holidays)
 
         df["is_holiday"] = np.array(is_holiday) * 1
         return df

@@ -1,6 +1,7 @@
 import logging
 
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 from utils.data.helpers import DataProcessor
 
@@ -74,6 +75,16 @@ class FeatureBuilder(DataProcessor):
             "pickup_neighborhood",
             "dropoff_neighborhood",
         ]])
+
+        columns = df.columns.to_list()
+        columns.remove('fare')
+        columns.append('fare')
+
+        df = df[columns]
+
+        std = StandardScaler()
+
+        df[["passenger_count", "distance"]] = std.fit_transform(df[["passenger_count", "distance"]])
 
         self.df = df
 

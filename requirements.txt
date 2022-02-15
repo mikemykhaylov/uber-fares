@@ -1,6 +1,7 @@
 click
 cloudml-hypertune
 coverage
+docutils==0.17
 flake8
 flit
 folium
@@ -9,6 +10,7 @@ gcsfs
 geopandas
 geopy
 google-cloud-storage
+holidays
 jupyter
 numpy
 pandas
