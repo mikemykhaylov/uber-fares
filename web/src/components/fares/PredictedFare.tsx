@@ -1,10 +1,15 @@
 import { Box, Skeleton, Stat, StatHelpText, StatLabel, StatNumber } from '@chakra-ui/react';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { predictedFare } from '../../state/atoms';
+import { predictedFare, predictionYear } from '../../state/atoms';
 
 const PredictedFare = () => {
   const fare = useRecoilValue(predictedFare);
+
+  const year = useRecoilValue(predictionYear);
+  const date = new Date();
+  date.setFullYear(year);
+
   return (
     <Box
       boxShadow="lg"
@@ -18,15 +23,20 @@ const PredictedFare = () => {
       <Stat>
         <StatLabel fontSize="xl">Predicted fare</StatLabel>
         <StatNumber fontSize="4xl">
-          {fare === -1 ? (
-            <Skeleton borderRadius={4} width="50%">
-              --.--
-            </Skeleton>
-          ) : (
-            fare
-          )}
+          <Skeleton mt={2} borderRadius={4} w="max-content" isLoaded={fare !== 0}>
+            {`$${fare}`}
+          </Skeleton>
         </StatNumber>
-        <StatHelpText>Thursday, 10 Feb 2015</StatHelpText>
+        <Skeleton mt={2} borderRadius={4} w="max-content" isLoaded={fare !== 0}>
+          <StatHelpText>
+            {date.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </StatHelpText>
+        </Skeleton>
       </Stat>
     </Box>
   );
