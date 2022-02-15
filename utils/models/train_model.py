@@ -35,10 +35,8 @@ def train_model(input_path, output_path, mode, gcloud, max_depth, n_estimators):
     logger.info("Reading and converting data")
     df: DataFrame = pd.read_csv(f"{input_path}/processed_features.csv")
 
-    X_columns = df.columns.tolist()
-    X_columns.remove("fare")
-    X = df[X_columns]
-    Y = df["fare"]
+    X = df.iloc[:, :-1]
+    Y = df.iloc[:, -1]
 
     model = adaboost_model(max_depth=max_depth, n_estimators=n_estimators)
 
