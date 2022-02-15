@@ -22,8 +22,8 @@ const Map = () => {
         }}
         mapStyle="mapbox://styles/mapbox/light-v9"
       >
-        <Marker type="pickup" marker={markerA} />
         <Marker type="dropoff" marker={markerB} />
+        <Marker type="pickup" marker={markerA} />
       </MapGL>
       <Box
         position="absolute"
