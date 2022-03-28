@@ -48,6 +48,7 @@ const GetFares = () => {
         mt={4}
       >
         <Button
+          disabled
           leftIcon={<MdOnlinePrediction />}
           colorScheme="blue"
           onClick={handleGetPrediction}
@@ -56,6 +57,7 @@ const GetFares = () => {
           Past predicted rates
         </Button>
         <Button
+          disabled
           colorScheme="blackAlpha"
           bgColor="gray.900"
           leftIcon={<FaUber />}
