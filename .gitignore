@@ -92,3 +92,6 @@ data/**
 
 # Mypy cache
 .mypy_cache/
+
+# Webapp node_modules
+node_modules/
