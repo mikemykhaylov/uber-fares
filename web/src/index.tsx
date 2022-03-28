@@ -9,6 +9,7 @@ const theme = extendTheme({
     global: {
       body: {
         bg: 'gray.100',
+        pb: '4rem',
       },
     },
   },
