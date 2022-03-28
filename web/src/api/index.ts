@@ -5,7 +5,7 @@ type PredictionAPI = (requestJson: PredictionAPIRequest) => Promise<number>;
 
 export const getPredictedFare: PredictionAPI = async (requestJson) => {
   const { prediction }: PredictionAPIResponse = await ky
-    .post('https://us-central1-uber-fares.cloudfunctions.net/ml-prediction-fn', {
+    .post('https://ml-prediction-fn-iqfu6jcr7q-uc.a.run.app', {
       json: requestJson,
     })
     .json();
