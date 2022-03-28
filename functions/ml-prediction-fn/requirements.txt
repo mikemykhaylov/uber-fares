@@ -1,0 +1,10 @@
+Flask
+functions-framework
+google-cloud-aiplatform
+numpy
+yapf
+holidays
+pandas
+geopy
+schema
+Shapely
