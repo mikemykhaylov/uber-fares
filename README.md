@@ -6,8 +6,6 @@ Uber Fares is a Data Science and Machine Learning I worked on in my free time. I
 [![Netlify](https://img.shields.io/netlify/2da9b75f-d673-4a74-bedf-b3f18117d9bf)](https://app.netlify.com/sites/uber-fares-docs/deploys)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/mmykhaylov/uber-fares?sort=semver)
 
-
-
 ## Features
 
 During the project development I have...
@@ -18,13 +16,12 @@ During the project development I have...
 - Iterated through several ML algorithms such as Polynomial regression, ElasticNet and Decision trees
 - Tuned hyperparameters and trained the model on Google Cloud
 
-
 ## Documentation
 
 Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs.netlify.app/)
 
-
 ## Project Structure
+
 ```
     ├── LICENSE
     ├── Makefile                <- Makefile with commands like `make data` or `make model`
@@ -39,7 +36,7 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
     ├── environment.yml         <- Template for conda environment creation
     ├── models                  <- Trained and serialized models
     ├── notebooks               <- Jupyter notebooks for explorations
-    │   ├── 0.1_data_processing_tests 
+    │   ├── 0.1_data_processing_tests
     │   ├── 0.2_exploration
     │   └── 0.3_machine_learning
     ├── references              <- Data dictionaries, manuals, and all other explanatory materials.
@@ -53,10 +50,10 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
         ├── data                    <- Scripts to preprocess data for analysis
         ├── features                <- Scripts to build features
         ├── models                  <- Scripts to train models
-        └── visualization           <- Scripts to produce visualisations 
+        └── visualization           <- Scripts to produce visualisations
 ```
+
 ## Acknowledgements
 
- - [Cookiecutter Data Science Project](https://drivendata.github.io/cookiecutter-data-science/)
- - [Readme.so](https://readme.so/)
- 
+- [Cookiecutter Data Science Project](https://drivendata.github.io/cookiecutter-data-science/)
+- [Readme.so](https://readme.so/)
