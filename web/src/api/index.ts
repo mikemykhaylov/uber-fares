@@ -3,7 +3,7 @@ import { PredictionAPIRequest, PredictionAPIResponse } from '../../types/api';
 
 type PredictionAPI = (requestJson: PredictionAPIRequest) => Promise<number>;
 
-export const getPredictedFare: PredictionAPI = async (requestJson) => {
+const getPredictedFare: PredictionAPI = async (requestJson) => {
   const { prediction }: PredictionAPIResponse = await ky
     .post('https://ml-prediction-fn-iqfu6jcr7q-uc.a.run.app', {
       json: requestJson,
@@ -11,3 +11,5 @@ export const getPredictedFare: PredictionAPI = async (requestJson) => {
     .json();
   return +prediction.toFixed(2);
 };
+
+export default getPredictedFare;

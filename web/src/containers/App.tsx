@@ -19,8 +19,6 @@ const App = () => {
           alignItems="flex-start"
         >
           <PredictedFare />
-          {/*<PredictedFare />*/}
-          {/*<PredictedFare />*/}
         </Stack>
       </Container>
     </>

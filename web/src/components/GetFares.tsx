@@ -10,7 +10,7 @@ import {
   predictionYear,
   predictionYearError,
 } from '../state/atoms';
-import { getPredictedFare } from '../api';
+import getPredictedFare from '../api';
 
 const GetFares = () => {
   const [loading, setLoading] = useState(false);

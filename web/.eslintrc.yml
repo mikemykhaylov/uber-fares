@@ -1,10 +1,10 @@
 env:
   browser: true
-  es2021: true
+  es2022: true
 extends:
   - 'airbnb'
   - 'airbnb-typescript'
-  - plugin:prettier/recommended
+  - 'plugin:prettier/recommended'
 parser: '@typescript-eslint/parser'
 settings:
   react:
@@ -12,12 +12,12 @@ settings:
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 12
+  ecmaVersion: 'latest'
   sourceType: module
   project: './tsconfig.json'
 plugins:
-  - react
-  - "@typescript-eslint"
+  - 'react'
+  - '@typescript-eslint'
 rules:
   react/function-component-definition:
     - 2
