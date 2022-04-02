@@ -1,5 +1,6 @@
 import { Button, Heading, Stack } from '@chakra-ui/react';
-import { FaUber, MdOnlinePrediction } from 'react-icons/all';
+import { FaUber } from 'react-icons/fa';
+import { MdOnlinePrediction } from 'react-icons/md';
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
