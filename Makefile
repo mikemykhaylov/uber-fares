@@ -115,7 +115,7 @@ gcs_model_pull:
 
 ## Upload model task to Google Cloud Storage
 gcs_task_push: build
-	gsutil -m cp -R dist/uber-fares-0.1.0.tar.gz gs://$(BUCKET)
+	gsutil -m cp -R dist/uber-fares-0.2.1.tar.gz gs://$(BUCKET)
 
 ## Lint using flake8
 lint:

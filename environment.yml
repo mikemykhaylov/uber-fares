@@ -30,4 +30,3 @@ dependencies:
   - sphinx-pyproject
   - sphinxcontrib-napoleon
   - yapf
-prefix: /Users/mike/.miniconda3/envs/uber-fares

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
 import App from './containers/App';
@@ -15,7 +15,9 @@ const theme = extendTheme({
   },
 });
 
-render(
+const container = document.getElementById('root') as HTMLDivElement;
+const root = createRoot(container);
+root.render(
   <React.StrictMode>
     <RecoilRoot>
       <ChakraProvider theme={theme}>
@@ -23,11 +25,4 @@ render(
       </ChakraProvider>
     </RecoilRoot>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
-
-// Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
-// Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
-if (import.meta.hot) {
-  import.meta.hot.accept();
-}

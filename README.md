@@ -23,34 +23,38 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
 ## Project Structure
 
 ```
-    ├── LICENSE
-    ├── Makefile                <- Makefile with commands like `make data` or `make model`
-    ├── README.md               <- The top-level README for developers using this project.
-    ├── config.yaml             <- Config file for hyperparameter tuning job on Google Cloud Vertex AI
     ├── data
-    │   ├── external            <- Data from third party sources.
-    │   ├── interim             <- Intermediate data that has been transformed.
-    │   ├── processed           <- The final, canonical data sets for modeling.
-    │   └── raw                 <- The original, immutable data dump.
+    │   ├── external            <- Data from third party sources.
+    │   ├── interim             <- Intermediate data that has been transformed.
+    │   ├── processed           <- The final, canonical data sets for modeling.
+    │   └── raw                 <- The original, immutable data dump.
     ├── docs                    <- Sphinx Docs; see sphinx-doc.org for details
-    ├── environment.yml         <- Template for conda environment creation
+    ├── functions               <- Google Cloud Functions code
+    │   ├── actual-fare-fn      <- Function for getting fare from Uber API
+    │   └── ml-prediction-fn    <- Function for the predicting the fare with ML model
+    ├── gcloud                  <- Google Cloud Vertex AI configs
+    │   ├── hp_config.yml       <- Hyperparameter Tuning config
+    │   └── train_config.yml    <- Training config
     ├── models                  <- Trained and serialized models
     ├── notebooks               <- Jupyter notebooks for explorations
-    │   ├── 0.1_data_processing_tests
-    │   ├── 0.2_exploration
-    │   └── 0.3_machine_learning
+    │   ├── 0.1_data_processing_tests
+    │   ├── 0.2_exploration
+    │   └── 0.3_machine_learning
     ├── references              <- Data dictionaries, manuals, and all other explanatory materials.
     ├── reports                 <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures             <- Generated graphics and figures to be used in reporting
+    │   └── figures             <- Generated graphics and figures to be used in reporting
+    ├── utils                   <- Source code for all analysis
+    │   ├── data                <- Scripts to preprocess data for analysis
+    │   ├── features            <- Scripts to build features
+    │   ├── models              <- Scripts to train models
+    │   └── visualization       <- Scripts to produce visualisations
+    ├── environment.yml         <- Template for conda environment creation
+    ├── Makefile                <- Makefile with commands like `make data` or `make model`
+    ├── pyproject.toml          <- Python project config file for packaging for Vertex AI
+    ├── README.md               <- The top-level README for developers using this project.
     ├── requirements.txt        <- Pip requirements
-    ├── setup.py                <- Package setup for packaging for Vertex AI pipeline
     ├── test_environment.py     <- Script for testing the correct environment setup
-    ├── tox.ini                 <- tox file with settings for running tox; see tox.readthedocs.io
-    └── utils                   <- Source code for all analysis
-        ├── data                    <- Scripts to preprocess data for analysis
-        ├── features                <- Scripts to build features
-        ├── models                  <- Scripts to train models
-        └── visualization           <- Scripts to produce visualisations
+    └── tox.ini                 <- tox file with settings for running tox; see tox.readthedocs.io
 ```
 
 ## Acknowledgements

@@ -1,5 +1,6 @@
 import { Button, Heading, Stack } from '@chakra-ui/react';
-import { FaUber, MdOnlinePrediction } from 'react-icons/all';
+import { FaUber } from 'react-icons/fa';
+import { MdOnlinePrediction } from 'react-icons/md';
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
@@ -9,7 +10,7 @@ import {
   predictionYear,
   predictionYearError,
 } from '../state/atoms';
-import { getPredictedFare } from '../api';
+import getPredictedFare from '../api';
 
 const GetFares = () => {
   const [loading, setLoading] = useState(false);

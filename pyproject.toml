@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "uber-fares"
-version = "0.2.0"
+version = "0.2.1"
 description = "Uber Fares Data Science"
 authors = [
     { name = "Michael Mykhaylov", email = "mikemikhailov2003@gmail.com" },
@@ -27,10 +27,14 @@ include = ["utils/"]
 exclude = [
     "data/",
     "docs/",
+    "functions/",
+    "gcloud/",
     "models/",
     "notebooks/",
     "references/",
     "reports/",
+    "web",
+    ".*",
     "*.yml",
     "Makefile",
     "test_environment.py",
