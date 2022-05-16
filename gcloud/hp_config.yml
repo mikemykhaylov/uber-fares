@@ -23,7 +23,7 @@ trialJobSpec:
       pythonPackageSpec:
         executorImageUri: us-docker.pkg.dev/vertex-ai/training/scikit-learn-cpu.0-23:latest
         packageUris:
-          - gs://data-science-pipeline-f1eb75cd-9d56-4916-a1c9-a1bef6478afa/uber-fares-0.2.0.tar.gz
+          - gs://data-science-pipeline-f1eb75cd-9d56-4916-a1c9-a1bef6478afa/uber-fares-0.2.1.tar.gz
         pythonModule: utils.models.cli
         args:
           - train
