@@ -116,10 +116,10 @@ class DataFormatter(DataProcessor):
         """Adds the distance between pickup and drop-off to a portion of DataFrame
 
         Args:
-          df(pd.DataFrame): DataFrame
+          df(DataFrame): DataFrame
 
         Returns:
-          pd.DataFrame: DataFrame with distances
+          DataFrame: DataFrame with distances
 
         """
         distances = []

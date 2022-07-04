@@ -5,7 +5,6 @@ from pathlib import Path
 
 import numpy as np
 from holidays import US
-from pandas import DataFrame
 from shapely.geometry import Point, shape
 
 from utils.data.helpers import DataProcessor
