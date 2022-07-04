@@ -84,7 +84,7 @@ class FeatureBuilder(DataProcessor):
 
         std = StandardScaler()
 
-        df[["passenger_count", "distance"]] = std.fit_transform(df[["passenger_count", "distance"]])
+        df[["year", "passenger_count", "distance"]] = std.fit_transform(df[["year", "passenger_count", "distance"]])
 
         self.df = df
 
