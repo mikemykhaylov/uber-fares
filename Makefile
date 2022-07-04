@@ -79,17 +79,6 @@ features:
 model:
 	$(PYTHON_INTERPRETER) -m utils.models train data/processed --output-path=models --mode=train --max_depth=27 --n_estimators=100
 
-## Run custom training job on Google Cloud
-vertex_train: gcs_task_push
-	CURRTIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-	gcloud ai custom-jobs create --region=us-central1 --display-name="uber-fares-model-${CURRTIME}" --config=gcloud/train_config.yml
-
-## Run hyperparameter tuning job on Google Cloud Vertex AI
-vertex_hp_tune: gcs_task_push
-	CURRTIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-	gcloud ai hp-tuning-jobs create --region=us-central1 --display-name="uber-fares-model-tuning-${CURRTIME}" \
-	--max-trial-count=10 --parallel-trial-count=3 --config=gcloud/hp_config.yml
-
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -108,14 +97,6 @@ gcs_data_pull:
 gcs_data_pull_raw:
 	gsutil -m cp -R gs://$(BUCKET)/data/raw data
 	gsutil -m cp -R gs://$(BUCKET)/data/external data
-
-## Download models from Google Cloud Storage
-gcs_model_pull:
-	gsutil -m cp -R gs://$(BUCKET)/model models
-
-## Upload model task to Google Cloud Storage
-gcs_task_push: build
-	gsutil -m cp -R dist/uber-fares-0.2.1.tar.gz gs://$(BUCKET)
 
 ## Lint using flake8
 lint:

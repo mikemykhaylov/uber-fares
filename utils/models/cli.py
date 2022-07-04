@@ -14,7 +14,6 @@ def cli():
 @cli.command()
 @click.option("--output-path", type=str, envvar="AIP_MODEL_DIR")
 @click.option("--mode", type=click.Choice(["train", "cv", "grid"]))
-@click.option("--gcloud", is_flag=True, help="Run as if in GCP Vertex AI Pipeline")
 @click.option(
     "--max_depth",
     type=int,
@@ -30,13 +29,13 @@ def cli():
     show_default=True,
 )
 @click.argument("input_path", type=str)
-def train(input_path, output_path, mode, gcloud, max_depth, n_estimators):
+def train(input_path, output_path, mode, max_depth, n_estimators):
     """Builds features
 
     Returns:
         None
     """
-    train_model(input_path, output_path, mode, gcloud, max_depth, n_estimators)
+    train_model(input_path, output_path, mode, max_depth, n_estimators)
 
 
 if __name__ == '__main__':

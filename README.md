@@ -14,7 +14,6 @@ During the project development I have...
 - Formatted, cleaned, and enriched the dataset with additional data (NYC Neighborhoods and US Holidays)
 - Created qualitative, spacial and temporal visualisations with Seaborn
 - Iterated through several ML algorithms such as Polynomial regression, ElasticNet and Decision trees
-- Tuned hyperparameters and trained the model on Google Cloud
 
 ## Documentation
 
@@ -29,12 +28,6 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
     │   ├── processed           <- The final, canonical data sets for modeling.
     │   └── raw                 <- The original, immutable data dump.
     ├── docs                    <- Sphinx Docs; see sphinx-doc.org for details
-    ├── functions               <- Google Cloud Functions code
-    │   ├── actual-fare-fn      <- Function for getting fare from Uber API
-    │   └── ml-prediction-fn    <- Function for the predicting the fare with ML model
-    ├── gcloud                  <- Google Cloud Vertex AI configs
-    │   ├── hp_config.yml       <- Hyperparameter Tuning config
-    │   └── train_config.yml    <- Training config
     ├── models                  <- Trained and serialized models
     ├── notebooks               <- Jupyter notebooks for explorations
     │   ├── 0.1_data_processing_tests
@@ -50,7 +43,7 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
     │   └── visualization       <- Scripts to produce visualisations
     ├── environment.yml         <- Template for conda environment creation
     ├── Makefile                <- Makefile with commands like `make data` or `make model`
-    ├── pyproject.toml          <- Python project config file for packaging for Vertex AI
+    ├── pyproject.toml          <- Python project config file
     ├── README.md               <- The top-level README for developers using this project.
     ├── requirements.txt        <- Pip requirements
     ├── test_environment.py     <- Script for testing the correct environment setup

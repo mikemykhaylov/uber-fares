@@ -29,10 +29,6 @@ Model Training
 --------------
 - ``model``
     Train model
-- ``vertex_hp_train``
-    Run custom training job on Google Cloud Vertex AI
-- ``vertex_hp_tune``
-    Run hyperparameter tuning job on Google Cloud Vertex AI
 
 Google Cloud Storage
 --------------------
@@ -42,10 +38,6 @@ Google Cloud Storage
     Download raw data from Google Cloud Storage
 - ``gcs_data_push``
     Upload data to Google Cloud Storage
-- ``gcs_model_pull``
-    Download models from Google Cloud Storage
-- ``gcs_task_push``
-    Upload model task to Google Cloud Storage
 
 Miscellaneous
 -------------

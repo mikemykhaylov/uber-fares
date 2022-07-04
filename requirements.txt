@@ -1,15 +1,11 @@
 click
-cloudml-hypertune
 coverage
 docutils
 flake8
-flit
 folium
 furo
-gcsfs
 geopandas
 geopy
-google-cloud-storage
 holidays
 jupyter
 numpy

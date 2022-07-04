@@ -1,21 +1,16 @@
 name: uber-fares
 channels:
   - conda-forge
-  - conda-forge/label/cloudml_hypertune_dev
   - https://conda.anaconda.org/domdfcoding
   - defaults
 dependencies:
   - click
-  - cloudml-hypertune
   - coverage
   - flake8
-  - flit
   - folium
   - furo
-  - gcsfs
   - geopandas
   - geopy
-  - google-cloud-storage
   - holidays
   - jupyter
   - numpy
