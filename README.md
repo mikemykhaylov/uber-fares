@@ -41,6 +41,7 @@ Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs
     │   ├── features            <- Scripts to build features
     │   ├── models              <- Scripts to train models
     │   └── visualization       <- Scripts to produce visualisations
+    ├── web                     <- Web demo
     ├── environment.yml         <- Template for conda environment creation
     ├── Makefile                <- Makefile with commands like `make data` or `make model`
     ├── pyproject.toml          <- Python project config file
