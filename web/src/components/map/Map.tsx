@@ -1,11 +1,12 @@
 import React from 'react';
 import MapGL from 'react-map-gl';
-import { Box } from '@chakra-ui/react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
 import Marker from './Marker';
 import markerA from '../../images/red_MarkerA.png';
 import markerB from '../../images/red_MarkerB.png';
 
 const Map = () => {
+  const mapHeight = useBreakpointValue({ base: '450px', lg: '600px' });
   return (
     <Box position="relative">
       <MapGL
@@ -18,7 +19,7 @@ const Map = () => {
         style={{
           zIndex: 0,
           width: '100vw',
-          height: '450px',
+          height: mapHeight,
         }}
         mapStyle="mapbox://styles/mapbox/light-v9"
       >
