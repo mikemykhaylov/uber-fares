@@ -1,7 +1,7 @@
 name: uber-fares
 channels:
   - conda-forge
-  - https://conda.anaconda.org/domdfcoding
+  - domdfcoding
   - defaults
 dependencies:
   - click
@@ -15,7 +15,7 @@ dependencies:
   - jupyter
   - numpy
   - pandas
-  - python
+  - python=3.9
   - scikit-learn
   - scipy
   - seaborn
