@@ -27,7 +27,8 @@ class DataProcessor(ABC):
         self.df: DataFrame = pd.read_csv(f"{data_path}/{file_name}")
         self.logger = logging.getLogger(__name__)
 
-    def write_data(self, data_path, file_name):
+    @staticmethod
+    def write_data(df: DataFrame, data_path: str, file_name: str, index: bool = False):
         """Writes DataFrame to CSV.
 
         Args:
@@ -38,7 +39,7 @@ class DataProcessor(ABC):
             None
 
         """
-        self.df.to_csv(f"{data_path}/{file_name}", index=False)
+        df.to_csv(f"{data_path}/{file_name}", index=index, index_label="name")
 
     @staticmethod
     def parallelize_dataframe(df, func):

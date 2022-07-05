@@ -1,6 +1,5 @@
 import logging
 
-import numpy as np
 import pandas as pd
 from geopy import distance
 
@@ -25,15 +24,10 @@ class DataFormatter(DataProcessor):
         """
         df = self.df
 
-        self.logger.info(f"Initial data shape: {df.shape}")
-
-        # Some entries contain 0s as coordinates or fares, which are incorrect
-        df = df.replace(0, np.nan).dropna()
-
-        self.logger.info(f"Data shape after removing NaNs: {df.shape}")
-
         # Key is just the entry id and unnamed is the same as pickup_datetime
         df = df.drop(["key", "Unnamed: 0"], axis=1, errors="ignore")
+
+        self.logger.info(f"Initial data shape: {df.shape}")
 
         # Dropping duplicates
         df = df.drop_duplicates()
@@ -51,6 +45,7 @@ class DataFormatter(DataProcessor):
         df["day"] = df["pickup_datetime"].dt.day
         df["hour"] = df["pickup_datetime"].dt.hour
         df["weekday"] = df["pickup_datetime"].dt.weekday
+        df["weekend"] = df["weekday"].between(5, 6)
 
         df = df.drop(columns=["pickup_datetime"])
 
@@ -72,8 +67,8 @@ class DataFormatter(DataProcessor):
         # Filtering by such rules:
         # 1. Latitude has to be absolutely less than 90
         # 2. Longitude has to be absolutely less than 180
-        # 3. Passengers can't be more than 6
-        # 4. Fares have to be more than 0
+        # We do it here because the distance calculation is based on these values
+
         invalid_latitudes = (abs(df[["lat0", "lat1"]]) <= 90).all(axis=1)
         invalid_longitudes = (abs(df[["lon0", "lon1"]]) <= 180).all(axis=1)
         invalid_coordinates = invalid_latitudes & invalid_longitudes
@@ -81,26 +76,9 @@ class DataFormatter(DataProcessor):
         df = df[invalid_coordinates]
         self.logger.info(f"Data shape after removing invalid coordinates: {df.shape}")
 
-        realistic_passengers = df["passenger_count"] <= 6
-
-        df = df[realistic_passengers]
-        self.logger.info(f"Data shape after removing invalid passengers: {df.shape}")
-
-        positive_fares = df["fare"] > 0
-
-        df = df[positive_fares]
-        self.logger.info(f"Data shape after removing invalid fares: {df.shape}")
-
         # For each entry we calculate the distance travelled
         self.logger.info("Calculating pickup to drop-off distances. This might take a while...")
         df = self.parallelize_dataframe(df, self.get_distances)
-
-        # We remove entries with 0 distance
-        df = df[(df["distance"] != 0)]
-        self.logger.info(f"Data shape after removing zero- and impossible-distance trips: {df.shape}")
-
-        # Adding a price per km metric, as it is useful for cleaning
-        df["price_per_km"] = df["fare"] / df["distance"]
 
         # Reorder columns for convenience
         columns = df.columns.tolist()
@@ -109,6 +87,7 @@ class DataFormatter(DataProcessor):
 
         df = df.reindex(columns=columns)
 
+        self.logger.info(f"Final data shape: {df.shape}")
         self.df = df
 
     @staticmethod

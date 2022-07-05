@@ -30,7 +30,7 @@ class FeatureBuilder(DataProcessor):
         # Others cannot be present, because they are derived from
         # the predicted variable, like price/km. Therefore, both are removed
         self.logger.info("Removing unused columns")
-        df = df.drop(columns=["lon0", "lat0", "lon1", "lat1", "day", "price_per_km"])
+        df = df.drop(columns=["lon0", "lat0", "lon1", "lat1", "day"])
         df = df[[
             "year",
             "month",
@@ -43,8 +43,6 @@ class FeatureBuilder(DataProcessor):
             "dropoff_neighborhood",
             "fare",
         ]]
-
-        df[["year"]] = df[["year"]] - 2008
 
         df[[
             "month",
@@ -82,6 +80,14 @@ class FeatureBuilder(DataProcessor):
 
         df = df[columns]
 
+        # Saving the means and stds to be used later for production
+        means = df[["year", "passenger_count", "distance"]].mean()
+        stds = df[["year", "passenger_count", "distance"]].std()
+        constants = pd.concat([means, stds], axis=1).transpose()
+        constants.index = ['mean', 'std']
+
+        self.write_data(constants, "data/processed", "scaling_constants.csv", index=True)
+
         std = StandardScaler()
 
         df[["year", "passenger_count", "distance"]] = std.fit_transform(df[["year", "passenger_count", "distance"]])
@@ -104,4 +110,4 @@ def build_features():
     preprocessor.build_features()
 
     logger.info("Saving data")
-    preprocessor.write_data("data/processed", "processed_features.csv")
+    preprocessor.write_data(preprocessor.df, "data/processed", "processed_features.csv")
