@@ -7,6 +7,9 @@ from utils.features import build_features
 
 @click.group()
 def cli():
+    """
+    CLI for the features module.
+    """
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 

@@ -8,6 +8,9 @@ from utils.data.subroutines import clean_data, format_data, enrich_data
 
 @click.group()
 def cli():
+    """
+    CLI for the data module.
+    """
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 

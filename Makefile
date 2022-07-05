@@ -100,7 +100,7 @@ gcs_data_pull_raw:
 
 ## Lint using flake8
 lint:
-	flake8 utils
+	flakeheaven lint ./utils
 
 ## Format using yapf
 format:

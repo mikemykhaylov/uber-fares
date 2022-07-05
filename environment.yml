@@ -6,15 +6,17 @@ channels:
 dependencies:
   - click
   - coverage
-  - flake8
+  - flakeheaven
   - folium
   - furo
   - geopandas
   - geopy
   - holidays
   - jupyter
+  - mccabe
   - numpy
   - pandas
+  - pylint
   - python=3.9
   - scikit-learn
   - scipy

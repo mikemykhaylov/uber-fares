@@ -39,7 +39,7 @@ class DataEnricher(DataProcessor):
         project_dir = Path(__file__).resolve().parents[3]
 
         geojson_path = str(project_dir) + "/data/external/nyc_neighborhoods.geo.json"
-        with open(geojson_path) as f:
+        with open(geojson_path, encoding="utf-8") as f:
             self.nyc_neighborhoods = json.load(f)
 
         self.nyc_holidays = US(state="NY")
@@ -94,7 +94,7 @@ class DataEnricher(DataProcessor):
         pickup_neighborhoods = []
         dropoff_neighborhoods = []
 
-        for i, row in df.iterrows():
+        for _, row in df.iterrows():
             pickup_point = Point(row["lon0"], row["lat0"])
             pickup_neighborhood = get_neighborhood(pickup_point)
             pickup_neighborhoods.append(pickup_neighborhood)
@@ -119,7 +119,7 @@ class DataEnricher(DataProcessor):
         """
         is_holiday = []
 
-        for i, row in df[['year', 'month', 'day']].astype(int).iterrows():
+        for _, row in df[['year', 'month', 'day']].astype(int).iterrows():
             ride_date = date(row['year'], row['month'], row['day'])
             is_holiday.append(ride_date in self.nyc_holidays)
 

@@ -57,8 +57,6 @@ class DataProcessor(ABC):
         num_cores = multiprocessing.cpu_count()
         num_partitions = num_cores
         df_split = np.array_split(df, num_partitions)
-        pool = multiprocessing.Pool(num_cores)
-        df = pd.concat(pool.map(func, df_split))
-        pool.close()
-        pool.join()
+        with multiprocessing.Pool(num_cores) as pool:
+            df = pd.concat(pool.map(func, df_split))
         return df

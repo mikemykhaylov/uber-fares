@@ -123,7 +123,7 @@ class DataFormatter(DataProcessor):
 
         """
         distances = []
-        for i, row in df.iterrows():
+        for _, row in df.iterrows():
             distances.append(distance.distance((row["lat0"], row["lon0"]), (row["lat1"], row["lon1"])).km)
         df["distance"] = distances
         return df
