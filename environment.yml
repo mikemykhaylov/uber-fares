@@ -5,7 +5,9 @@ channels:
   - defaults
 dependencies:
   - click
+  - colorcet
   - coverage
+  - datashader
   - flakeheaven
   - folium
   - furo
@@ -13,6 +15,7 @@ dependencies:
   - geopy
   - holidays
   - jupyter
+  - jupyterlab
   - mccabe
   - numpy
   - pandas
