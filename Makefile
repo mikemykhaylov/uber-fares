@@ -28,11 +28,11 @@ endif
 environment:
 ifeq (True,$(HAS_MAMBA))
 	@echo ">>> Detected mamba, creating conda environment."
-	mamba env create -n $(PROJECT_NAME) -f environment.yml
+	mamba env create -n $(PROJECT_NAME) -f environment.explicit.yml
 	@echo ">>> New conda env created. Activate with:\nmamba activate $(PROJECT_NAME)"
 else ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
-	conda env create -n $(PROJECT_NAME) -f environment.yml
+	conda env create -n $(PROJECT_NAME) -f environment.explicit.yml
 	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
 else
 	$(PYTHON_INTERPRETER) -m pip install -q virtualenv virtualenvwrapper
