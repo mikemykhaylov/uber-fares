@@ -35,11 +35,8 @@ else ifeq (True,$(HAS_CONDA))
 	conda env create -n $(PROJECT_NAME) -f environment.explicit.yml
 	@echo ">>> New conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
 else
-	$(PYTHON_INTERPRETER) -m pip install -q virtualenv virtualenvwrapper
-	@echo ">>> Installing virtualenvwrapper if not already installed.\nMake sure the following lines are in shell startup file\n\
-	export WORKON_HOME=$$HOME/.virtualenvs\nexport PROJECT_HOME=$$HOME/Devel\nsource /usr/local/bin/virtualenvwrapper.sh\n"
-	@bash -c "source `which virtualenvwrapper.sh`;mkvirtualenv $(PROJECT_NAME) --python=$(PYTHON_INTERPRETER)"
-	@echo ">>> New virtualenv created. Activate with:\nworkon $(PROJECT_NAME)"
+	@echo ">>> Creating virtual environment. Activate with:\nsource $(PROJECT_NAME)/bin/activate"
+	$(PYTHON_INTERPRETER) -m venv ./venv
 endif
 
 ## Install Python Dependencies
