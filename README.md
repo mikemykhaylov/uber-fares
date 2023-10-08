@@ -17,7 +17,7 @@ During the project development I have...
 
 ## Documentation
 
-Documentation is hosted on Netlify and built on [Sphinx](https://uber-fares-docs.netlify.app/)
+Documentation is hosted on Netlify and built on [Sphinx]([https://uber-fares-docs.netlify.app/](https://www.sphinx-doc.org/en/master/))
 
 ## Project Structure
 
