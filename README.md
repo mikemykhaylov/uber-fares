@@ -3,7 +3,6 @@
 Uber Fares is a Data Science and Machine Learning I worked on in my free time. Its goals were to analyse the dataset of 200k NYC Uber rides and build a model to predict the price of the trip.
 
 [![MIT License](https://img.shields.io/github/license/mmykhaylov/uber-fares)](https://github.com/mmykhaylov/uber-fares/blob/main/LICENSE)
-[![Netlify](https://img.shields.io/netlify/2da9b75f-d673-4a74-bedf-b3f18117d9bf)](https://app.netlify.com/sites/uber-fares-docs/deploys)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/mmykhaylov/uber-fares?sort=semver)
 
 ## Features
